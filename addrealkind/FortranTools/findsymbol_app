@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+#==============================================================================
+# Author:            Tom Henderson
+# Organization:      NCAR MMM
+#
+# Description:
+#
+#   This is an application that finds all symbols that match a specified
+#   String in all Fortran source files beneath a specified directory.
+#
+#   Type "ruby findsymbol -h" for command-line options.
+#
+#
+# Assumptions:
+#   Source code is in Fortran90/95 free form.
+#   Source code compiles.
+#
+#
+# History:
+#
+#  Version 0.1  - Initial alpha-test version.
+#
+#==============================================================================
+
+$: << "LIB___DIR"
+
+if ($:.last =~ /lib___dir/i) then
+  raise "ERROR:  please run script \"install.rb\" first to install this application"
+end
+
+require 'findSymbol'
+
+app = FindSymbol.new
+

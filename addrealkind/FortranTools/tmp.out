@@ -1,0 +1,25 @@
+./argumentParser.rb:123:in `find_args': ERROR:  ran past end of string trying to find first matching ")" (ArgumentParserException)
+	from ./argumentParser.rb:101:in `initialize'
+	from ./fortranStatements.rb:367:in `new'
+	from ./fortranStatements.rb:367:in `findSymbols'
+	from ./fortranStatements.rb:777:in `findSymbols'
+	from ./fortranStatements.rb:772:in `each'
+	from ./fortranStatements.rb:772:in `findSymbols'
+	from ./findSymbol.rb:266:in `search_source_files'
+	from ./findSymbol.rb:241:in `find'
+	from /usr/lib/ruby/1.8/find.rb:38:in `catch'
+	from /usr/lib/ruby/1.8/find.rb:38:in `find'
+	from ./findSymbol.rb:241:in `search_source_files'
+	from ./findSymbol.rb:70:in `initialize'
+	from /users/hender/bin/findsymbol:33:in `new'
+	from /users/hender/bin/findsymbol:33
+
+findsymbol:  Searching for all symbols matching "WRF_ESMF_MOD" in all Fortran source files in directory "tmp".
+Symbol WRF_ESMF_MOD will be replaced by module_comp modifying Fortran source files in place.
+
+findsymbol:  Searching Fortran source file "tmp/tmp.F"...
+DEBUG:  tmp_str = <<X()>>
+DEBUG:  @in_str = <<X()>>
+DEBUG:  tmp_str = <<X(        WRITE(wrf_err_message,*)         'start_domain_nmm ims(',ims,' > -2 or ime (',ime,') > ',NMM_MAX_DIM,         '. Increase NMM_MAX_DIM in configure.wrf, clean, and recompile.')>>
+DEBUG:  @in_str = <<X(        WRITE(wrf_err_message,*)         'start_domain_nmm ims(',ims,' > -2 or ime (',ime,') > ',NMM_MAX_DIM,         '. Increase NMM_MAX_DIM in configure.wrf, clean, and recompile.')>>
+ERROR searching file tmp/tmp.F at line 2

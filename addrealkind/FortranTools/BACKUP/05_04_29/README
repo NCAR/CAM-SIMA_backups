@@ -1,0 +1,53 @@
+file README
+Tom Henderson                                       4/6/05
+
+THINGS TO DO TO GET AUTO-TRANSLATION OF REAL DECLARATIONS AND REAL LITERAL 
+CONSTANTS TO USE "kind"
+
+ - Add driver to run this on all *.[Ff] and *.[Ff]90 files beneath a 
+   specified directory.  
+   - Start testing with WRF, CAM, SMS, etc.  
+ X Add capability of doing "gsub" on a masked string
+   X Need new "MaskedString" class?  
+   X How to express the mask most conventiently?  
+     X list of Range objects
+   X Need unit tests
+ X Add string masks to FortranLine
+   X Add unit tests
+ X Add masked gsub to FortranLine
+   X Add unit tests
+ X Add translations of real and complex declarations
+   X Watch out for casts!
+ X Add translations of [d*]d.[d*] and [d*].d[d*] where "d" is a digit [0-9].  
+ X Add translations of odder things like 1.0d0, 3e4, a = b3e4zx
+ X Add option to name kind "fp" (WRF) or "r8" (CCSM) or ...  
+ X Deal with "IF ( x.gt.1 )" and other "." cases
+ X Create test suite as described below
+
+
+DISCUSSION
+
+At one point while at CGD, I suggested building a bit of automation to handle 
+all of the contributed code that did not use real(r8), 1.0_r8, etc.  Of 
+course, we never got around to it (or to any of the much more substantive 
+suggestions I made due to CCSM3.0 and IPCC ;-) ).  However, I am still 
+convinced that it would be fairly easy to construct a bit of Perl regexp 
+scripting to automate translation of real declarations to real(r8) and 
+translate real literal constants to use the "r8" kind ("1.0" -> "1.0_r8").  I 
+think this translator script would be very easy to test.  I'd use a simple sed 
+script to rip all of the "r8" bits out of CCSM code, run the translator to put 
+them all back, and diff vs. original.  With one more simple test file 
+containing all of the stranger variants of real literals we'd have a solid 
+unit test suite.  Then we could put the translator script in tools/ and add a 
+bit to the Web document http://www.mmm.ucar.edu/wrf/users/docs/wrf-phy.html 
+that describes how to use the tool.  And we'd want to run the tool 
+ourselves every so often to make sure we didn't accidentally forget to put the 
+r8's in in new code.  That step could be part of the pre-check-in process. 
+
+Of course, we'd want to change "r8" to something else!  Maybe "fp" 
+(floating-point precision) or something else short. 
+
+So, I think we can make it easy to use F90 "kind" for REAL and COMPLEX types. 
+
+
+

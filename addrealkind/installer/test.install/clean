@@ -1,0 +1,5 @@
+#!/bin/csh
+
+\rm -f app/tmp*
+\rm -fR lib/*
+

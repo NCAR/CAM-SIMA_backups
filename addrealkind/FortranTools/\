@@ -1,0 +1,113 @@
+#!/usr/bin/env ruby
+
+#==============================================================================
+# Author:            Tom Henderson
+# Acknowledgements:  
+# Organization:      NCAR MMM
+#
+# Description:  
+#
+#   This installs applications in this directory into a specified directory.  
+#   Every file named *.app will be installed as *.  
+#
+#   Type "ruby install.rb -h" for command-line options.  
+#
+#
+# History:  
+#
+#  Version 0.1  - Initial alpha-test version.  
+#
+#==============================================================================
+
+# classes used by this class
+require 'optparse'
+require 'find'
+require 'fortranStatements'
+
+
+#==============================================================================
+# Responsible for:  
+#   Installing all files named *_app in a user-specified directory.  
+#   Parsing command-line arguments.  
+#==============================================================================
+class InstallApps
+
+  # InstallApps.new
+  def initialize
+    # default settings
+    @targetdir = nil
+    @helpmsg = "\nType \"ruby #{$0} -h\" for help\n\n"
+    if (parse_command_line) then
+      install_apps
+    else
+      print "ERROR:  could not parse arguments\n#{@helpmsg}"
+      exit -1
+    end
+  end
+
+  # returns true iff command line was successfully parsed
+  def parse_command_line
+    ret = true
+    # Use OptionParser from standard library
+    opts = OptionParser.new do |opts|
+      opts.banner = <<END_OF_BANNER
+
+#{$0} is an application that installs applications in this directory into a 
+specified directory.  Every file named *.app will be installed as *.  
+
+Usage:  ruby #{$0} arguments [options]
+END_OF_BANNER
+      opts.separator ""
+      opts.separator "Required arguments:"
+      # Mandatory arguments.
+      opts.on("-d=DIR", "--directory=DIR",
+              "Target installation directory") do |dir|
+        absdir = dir.strip.sub("/$","")
+        unless (FileTest.directory?(absdir)) then
+          print "\nERROR:  \"#{absdir}\" is not a valid directory\n#{@helpmsg}"
+          exit -1
+        end
+        @targetdir = absdir
+      end
+      opts.separator ""
+      # No argument, shows at tail.  This will print an options summary.
+      opts.on_tail("-h", "--help", "Show this message\n") do
+        puts opts
+        exit
+      end
+    end
+    begin
+      opts.parse!(ARGV)
+    rescue
+#raise
+      ret = false
+    end
+    unless (@targetdir) then
+      print "\nERROR:  Must specify target directory on command line\n"
+      ret = false
+    end
+    ret
+  end
+
+  def install_apps
+    installfiles = Dir["*_app"]
+    curdir = Dir.getwd
+    installfiles.each do |ifile|
+      lines = IO.readlines(ifile)
+      lines.collect! { |line| line.sub(/LIB___DIR/, "#{curdir}") }
+      outfile = @targetdir + "/" + ifile.sub(/_app$/, "")
+      if (FileTest.directory?(absdir)) then
+      end
+print "DEBUG:  installing #{ifile} in #{outfile}\n"
+      File.open(outfile, "w") do |aFile|
+        aFile.puts(lines)
+      end   # File.open
+    end
+  end
+
+end  # class InstallApps
+
+
+InstallApps.new
+
+

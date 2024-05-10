@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+#==============================================================================
+# Author:            Tom Henderson
+# Organization:      NCAR MMM
+#
+# Description:
+#
+#   This is an application that adds a Fortran "kind" parameter to
+#   every REAL and COMPLEX declaration, literal constant, and cast (via
+#   intrinsic functions "REAL" and "CMPLX") where a kind parameter does
+#   not already exist.  Source files are modified in-place.
+#
+#   Type "ruby addrealkind -h" for command-line options.
+#
+#
+# Assumptions:
+#   Source code is in Fortran90/95 free form.
+#   Source code compiles.
+#
+#
+# History:
+#
+#  Version 0.1  - Initial alpha-test version.  Supported by a large unit-test
+#                 suite.
+#
+#==============================================================================
+
+$: << "/fs/cgd/csm/tools/addrealkind/FortranTools"
+
+if ($:.last =~ /lib___dir/i) then
+  raise "ERROR:  please run script \"install.rb\" first to install this application"
+end
+
+require 'addRealKind'
+
+app = AddRealKind.new
+
+exit $found_missing
+

@@ -1,0 +1,6 @@
+
+>> \rm -fR new
+>> cp -rp orig new
+>> addrealkind -d new -r r8
+>> difftree -v 3 orig/ new/
+

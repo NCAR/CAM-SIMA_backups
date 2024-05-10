@@ -1,0 +1,21 @@
+==============================================================
+Tag name:  addrealkind_111011a
+Originator(s):  fischer
+Date: October 10, 2011
+One-line Summary: Changes to only report missing r8, and return 
+                  and error code
+
+M      FortranTools/addRealKind.rb
+M      FortranTools/fortranStatements.rb
+     Changes to code so that only the locations of missing r8 are
+     returned, and no files are changed
+
+M      FortranTools/addrealkind_app
+     return error code
+
+==============================================================
+Tag name:  addrealkind_111011
+Originator(s):  fischer
+Date: October 10, 2011
+One-line Summary: Original code import
+==============================================================
