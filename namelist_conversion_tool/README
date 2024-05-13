@@ -1,0 +1,12 @@
+The script newCAM_namelist.py was written by Steve Goldhaber.  It requires namelist_defaults_cam.xml and namelist_definition_old.xm. to exist in the directory where this python script will be run.
+
+To run it:  "python newCAM_namelist.py"
+
+Current limitations:
+
+- The SILHS namelist has "%" in some of their namelist names, which is a prohibited variable within this tool.  In the 
+exomple namelist_defaults_cam.xml file included here, these variables have been commented out.
+
+-  All namelist names which do not reside in namelist_defaults_cam.xml file cause an error and are listed when this tool is run.  
+They need to be commented out, removed or a definition needs to be added.  The thought is once this is done, the script will do the
+conversion.  The "aircraft_co2_file" section has been disabled to prove that removing this variable gets rid of the error message.
